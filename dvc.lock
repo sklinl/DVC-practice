@@ -1,21 +1,5 @@
 schema: '2.0'
 stages:
-  prepare:
-    cmd: python src/prepare.py
-    deps:
-    - path: data/titanic.csv
-      hash: md5
-      md5: 6b8bc27b91029e911a8ae057bf221f90
-      size: 61761
-    - path: src/prepare.py
-      hash: md5
-      md5: 85d4a60986f89eb916be9b587bc759dd
-      size: 772
-    outs:
-    - path: data/prepared.csv
-      hash: md5
-      md5: 820aaceaa7f551d6949999b28dd4608a
-      size: 11728
   split_train_test:
     cmd: python src/split_train_test.py
     deps:
