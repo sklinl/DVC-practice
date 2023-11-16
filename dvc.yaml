@@ -1,0 +1,35 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - src/prepare.py
+    - data/titanic.csv
+    outs:
+    - data/prepared.csv
+  split_train_test:
+    cmd: python src/split_train_test.py
+    deps:
+    - data/prepared.csv
+    - src/split_train_test.py
+    outs:
+    - data/test.csv
+    - data/train.csv
+  train:
+    cmd: python src/train.py
+    deps:
+    - data/train.csv
+    - src/train.py
+    params:
+    - train.min_split
+    - train.n_est
+    outs:
+    - model.pkl
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - data/test.csv
+    - model.pkl
+    - src/evaluate.py
+    metrics:
+    - scores.json:
+        cache: false

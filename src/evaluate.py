@@ -18,7 +18,7 @@ pred = clf.predict(X_test)
 acc = accuracy_score(Y_test, pred)
 print(acc)
 
-    
+
 precision, recall, prc_thresholds = precision_recall_curve(Y_test, pred)
 fpr, tpr, roc_thresholds = roc_curve(Y_test, pred)
 
@@ -30,7 +30,7 @@ with open('scores.json', "w") as fd:
 
 
 
-# dvc run -n evaluate -d src/evaluate.py -d data/test.csv -d model.pkl -M scores.json python src/evaluate.py
+# dvc stage add -n evaluate -d src/evaluate.py -d data/test.csv -d model.pkl -M scores.json python src/evaluate.py
 
 # nth_point = math.ceil(len(prc_thresholds) / 1000)
 # prc_points = list(zip(precision, recall, prc_thresholds))[::nth_point]
@@ -57,5 +57,4 @@ with open('scores.json', "w") as fd:
 #         fd,
 #         indent=4,
 #     )
-    
-    
+

@@ -22,4 +22,4 @@ dataset = dataset.drop(['Fare', 'Ticket', 'Cabin', 'Name', 'PassengerId', 'Embar
 
 dataset.to_csv('./data/prepared.csv', index=False)
 
-# dvc run -n prepare -d src/prepare.py -d data/titanic.csv -o data/prepared.csv python src/prepare.py
+# dvc stage add -n prepare -d src/prepare.py -d data/titanic.csv -o data/prepared.csv python src/prepare.py

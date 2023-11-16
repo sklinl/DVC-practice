@@ -15,4 +15,4 @@ train.to_csv('./data/train.csv', index=False)
 test.to_csv('./data/test.csv', index=False)
 
 
-# dvc run -n split_train_test -d src/split_train_test.py -d data/preprocessed.csv -o data/train.csv -o data/test.csv python src/split_train_test.py
+# dvc stage add -n split_train_test -d src/split_train_test.py -d data/prepared.csv -o data/train.csv -o data/test.csv python src/split_train_test.py

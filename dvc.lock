@@ -1,0 +1,78 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: data/titanic.csv
+      hash: md5
+      md5: 6b8bc27b91029e911a8ae057bf221f90
+      size: 61761
+    - path: src/prepare.py
+      hash: md5
+      md5: 85d4a60986f89eb916be9b587bc759dd
+      size: 772
+    outs:
+    - path: data/prepared.csv
+      hash: md5
+      md5: 820aaceaa7f551d6949999b28dd4608a
+      size: 11728
+  split_train_test:
+    cmd: python src/split_train_test.py
+    deps:
+    - path: data/prepared.csv
+      hash: md5
+      md5: 820aaceaa7f551d6949999b28dd4608a
+      size: 11728
+    - path: src/split_train_test.py
+      hash: md5
+      md5: 851de0ab573d9da219d72d25fdc38344
+      size: 490
+    outs:
+    - path: data/test.csv
+      hash: md5
+      md5: 9dc7837a67c67463e0f81c15227a9c09
+      size: 1211
+    - path: data/train.csv
+      hash: md5
+      md5: a2d9fe46ccda10ff5b67816e1cfd0418
+      size: 10558
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/train.csv
+      hash: md5
+      md5: a2d9fe46ccda10ff5b67816e1cfd0418
+      size: 10558
+    - path: src/train.py
+      hash: md5
+      md5: 6a9e9cab3f5899fa2672f478cb08de17
+      size: 1011
+    params:
+      params.yaml:
+        train.min_split: 50
+        train.n_est: 100
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 4bda322b8404180bc240439cdedcdcc2
+      size: 320617
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/test.csv
+      hash: md5
+      md5: 9dc7837a67c67463e0f81c15227a9c09
+      size: 1211
+    - path: model.pkl
+      hash: md5
+      md5: 4bda322b8404180bc240439cdedcdcc2
+      size: 320617
+    - path: src/evaluate.py
+      hash: md5
+      md5: 4d49aff4fbb83f087ad8ecee0e139c43
+      size: 1691
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: 861e94f730da0a7c3794edc935f64825
+      size: 95

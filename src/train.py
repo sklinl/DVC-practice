@@ -26,9 +26,8 @@ clf = RandomForestClassifier(
 clf.fit(X_train, Y_train)
 
 
-joblib.dump(clf, 'model.pkl') 
+joblib.dump(clf, 'model.pkl')
 
-
+# dvc stage add -n train -p train.n_est,train.min_split -d src/train.py -d data/train.csv -o model.pkl python src/train.py
 # dvc exp run --set-param train.min_split=30
 # dvc exp run --queue -S train.n_est=200 -S train.min_split=50
-# dvc run -n train -p train.n_est,train.min_split -d src/train.py -d data/train.csv -o model.pkl python src/train.py

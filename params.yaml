@@ -1,0 +1,3 @@
+train:
+  n_est: 100
+  min_split: 50
